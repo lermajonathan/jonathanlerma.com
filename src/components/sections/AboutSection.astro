@@ -1,0 +1,73 @@
+---
+import { Image } from 'astro:assets';
+import portrait from '../../assets/img/jonathan-workshop.webp';
+---
+
+<section id="about" class="section about" aria-labelledby="about-title">
+  <div class="container about-grid">
+    <figure class="about-photo" data-reveal>
+      <Image
+        src={portrait}
+        alt="Jonathan Lerma speaking at a podium during a creative writing workshop"
+        widths={[480, 800, 1080]}
+        width={1080}
+        sizes="(max-width: 900px) 100vw, 40vw"
+        loading="lazy"
+      />
+      <figcaption class="mono">Speaking at a creative writing workshop · Cali</figcaption>
+    </figure>
+    <div class="about-copy">
+      <p class="eyebrow" data-reveal>
+        <b>06</b> About
+      </p>
+      <h2 id="about-title" class="h2" data-reveal style="--d:1">
+        Words matter to me <em>as much as pixels.</em>
+      </h2>
+      <div class="body about-text" data-reveal style="--d:2">
+        <p>
+          I started in graphic and web design, which is why I still care about the last pixel and the first line of
+          code. Over twelve years I grew into a T-shaped product designer: research, interaction and visual design, with
+          enough front-end to ship what I design.
+        </p>
+        <p>
+          My best work sits where complexity meets people — field crews on a weak signal, nurses drowning in alerts,
+          writers trying to finish a book. Several of my projects were made for writers, and that shows in how I treat
+          content: as part of the design, not filler for it.
+        </p>
+        <p>Today I’m building Pance in the open and helping teams close the gaps in their own systems.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(32px, 6vw, 96px);
+    align-items: center;
+  }
+  .about-photo {
+    margin: 0;
+    display: grid;
+    gap: 12px;
+  }
+  .about-photo :global(img) {
+    border-radius: 24px;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    width: 100%;
+  }
+  .about-copy {
+    display: grid;
+    gap: 28px;
+  }
+  .about-text p {
+    margin: 0 0 1em;
+  }
+  @media (max-width: 900px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

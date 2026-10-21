@@ -1,0 +1,259 @@
+---
+import { Image } from 'astro:assets';
+import Case from '../../layouts/Case.astro';
+import CaseSection from '../../components/case/CaseSection.astro';
+import cls from '../../assets/img/altazor-class.webp';
+import positioning from '../../assets/img/altazor-positioning.webp';
+import voice from '../../assets/img/altazor-voice.webp';
+import personas from '../../assets/img/altazor-personas.webp';
+import journey from '../../assets/img/altazor-journey.webp';
+import ia from '../../assets/img/altazor-ia.webp';
+import wire from '../../assets/img/altazor-wireframes.webp';
+import compass from '../../assets/img/altazor-compass.webp';
+import mod from '../../assets/img/altazor-module.webp';
+import site1 from '../../assets/img/altazor-site-1.webp';
+import site2 from '../../assets/img/altazor-site-2.webp';
+const w = [640, 960, 1400];
+const sizes = '(max-width: 900px) 100vw, 60vw';
+---
+
+<Case
+  slug="altazor"
+  title="Altazor Creative Writing Workshop"
+  headline="A writing workshop,"
+  headlineAccent="without walls."
+  summary="Altazor started as a small group meeting in the Departmental Library of Cali. I partnered with its founder, Gabriel Rodríguez, to turn a deeply personal workshop into a digital school — without losing what made it work."
+  meta={[
+    { label: 'Role', value: 'Lead designer — research, strategy, content, UX/UI, build' },
+    { label: 'Duration', value: '6 months to launch, ongoing since' },
+    { label: 'Partner', value: 'Gabriel Rodríguez, founder and mentor' },
+    { label: 'Platform today', value: 'Website on Supabase + PayU, Google Classroom' },
+  ]}
+  links={[{ label: 'Visit Altazor', href: 'https://altazorescrituracreativa.com' }]}
+  accent="var(--pance-color-amber-400)"
+>
+  <section class="cs" aria-labelledby="results">
+    <div class="container">
+      <h2 id="results" class="sr-only">
+        Results
+      </h2>
+      <ul class="stats">
+        <li>
+          <b>100+</b>
+          <span>Students published in literary magazines and independent presses</span>
+        </li>
+        <li>
+          <b>95%</b>
+          <span>Course completion rate</span>
+        </li>
+        <li>
+          <b>4.8 / 5</b>
+          <span>Student satisfaction</span>
+        </li>
+        <li>
+          <b>~10</b>
+          <span>Workshops a year, plus master classes and open sessions</span>
+        </li>
+      </ul>
+      <figure class="fig wide">
+        <Image
+          src={cls}
+          alt="Around sixty Altazor students of every age seated in a classroom during a community event"
+          widths={w}
+          width={1400}
+          sizes="100vw"
+        />
+        <figcaption>A community event. Students range from their twenties to their sixties.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <CaseSection id="research" number="01" eyebrow="Research" title="An online course" accent="would have failed.">
+    <p>
+      The landscape was informal literary circles, university extension courses and a few private tutors. Nobody offered
+      a structured, long-term programme that was both accessible and of high literary quality.
+    </p>
+    <p>
+      I interviewed <strong>15 aspiring writers</strong>. Technique was not their main need. They wanted:
+    </p>
+    <div class="cards">
+      <div>
+        <h3>Validation</h3>
+        <p>A safe place to share work without harsh, unstructured criticism.</p>
+      </div>
+      <div>
+        <h3>Community</h3>
+        <p>Peers, so writing feels less lonely.</p>
+      </div>
+      <div>
+        <h3>Discipline</h3>
+        <p>A clear path that gets them past procrastination and the blank page.</p>
+      </div>
+      <div>
+        <h3>Place</h3>
+        <p>Cali’s rhythm and identity reflected in what they learn.</p>
+      </div>
+    </div>
+    <p class="quote">
+      So the brief became a <em>taller literario</em> online — as alive as the room, with the benefits of digital tools.
+    </p>
+    <div class="figs">
+      <figure class="fig">
+        <Image
+          src={personas}
+          alt="Three personas: Juan the urban poet, Sofía the hidden chronicler and Roberto the seasoned dreamer"
+          widths={w}
+          width={1400}
+          sizes={sizes}
+        />
+        <figcaption>Personas from the interviews.</figcaption>
+      </figure>
+      <figure class="fig">
+        <Image
+          src={journey}
+          alt="Journey map for Sofía, from the spark of an idea to abandoning the draft in a drawer"
+          widths={w}
+          width={1400}
+          sizes={sizes}
+        />
+        <figcaption>Sofía’s journey, today: the draft ends in a drawer.</figcaption>
+      </figure>
+    </div>
+  </CaseSection>
+
+  <CaseSection id="strategy" number="02" eyebrow="Strategy & content" title="“Tu voz," accent="nuestro taller.”">
+    <p>
+      The positioning: not a rigid school but a shared space that honours each writer’s voice and gives them
+      master-level tools. Three pillars guided every decision, down to the wording of a button — local authenticity with
+      international quality, community as a feature, and content as conversation.
+    </p>
+    <p>
+      Content <em>was</em> the product. I broke Gabriel’s curriculum into short modules and replaced grades with{' '}
+      <strong>Compass for Growth</strong>: a self-assessment combined with peer and mentor feedback on specific craft
+      elements — dialogue, pacing, character — instead of a score.
+    </p>
+    <div class="figs">
+      <figure class="fig">
+        <Image
+          src={positioning}
+          alt="Brand positioning canvas with mission, vision, audience, value proposition and voice"
+          widths={w}
+          width={1400}
+          sizes={sizes}
+        />
+        <figcaption>Brand positioning canvas.</figcaption>
+      </figure>
+      <figure class="fig">
+        <Image
+          src={voice}
+          alt="Voice and copy principles: mentor-like, authentic, inspiring, with do and don’t examples"
+          widths={w}
+          width={1400}
+          sizes={sizes}
+        />
+        <figcaption>Voice & copy principles, with do/don’t examples.</figcaption>
+      </figure>
+      <figure class="fig">
+        <Image
+          src={compass}
+          alt="Compass for Growth feedback screen with a radar chart of six craft dimensions and mentor notes"
+          widths={w}
+          width={1400}
+          sizes={sizes}
+        />
+        <figcaption>Compass for Growth: feedback without grades.</figcaption>
+      </figure>
+      <figure class="fig">
+        <Image
+          src={mod}
+          alt="Lesson screen for module 2.1, The Architecture of a Short Story"
+          widths={w}
+          width={1400}
+          sizes={sizes}
+        />
+        <figcaption>A sample module.</figcaption>
+      </figure>
+    </div>
+  </CaseSection>
+
+  <CaseSection id="ux" number="03" eyebrow="Experience" title="Low cognitive load," accent="high creative flow.">
+    <p>
+      I mapped the platform, then tested paper and low-fidelity prototypes with people who matched the personas. One
+      example: the first enrolment flow was too long, so it became a single page to stop drop-off.
+    </p>
+    <p>
+      Visually, I defined a palette inspired by Cali’s sunsets and pen ink, a legible type system and a 4 px spacing
+      scale — already abstracted into design tokens, so the platform could be themed for new initiatives later.
+    </p>
+    <div class="figs">
+      <figure class="fig">
+        <Image
+          src={ia}
+          alt="Information architecture with courses, community, resources, about and profile sections"
+          widths={w}
+          width={1400}
+          sizes={sizes}
+        />
+        <figcaption>Information architecture.</figcaption>
+      </figure>
+      <figure class="fig">
+        <Image
+          src={wire}
+          alt="Mid-fidelity wireframes of the dashboard, writing room and peer feedback screen"
+          widths={w}
+          width={1400}
+          sizes={sizes}
+        />
+        <figcaption>Mid-fidelity wireframes.</figcaption>
+      </figure>
+    </div>
+  </CaseSection>
+
+  <CaseSection id="pivot" number="04" eyebrow="The pivot" title="Listening meant" accent="cutting my own work.">
+    <p>
+      After the first two workshops the data was clear: students preferred Google Classroom — which they already knew —
+      for lessons and assignments over a custom learning space. So we moved course content, feedback, text corrections
+      and audio notes to Classroom, where Gabriel and other mentors could respond faster.
+    </p>
+    <p>
+      The website kept what only it could do well: enrolment and payments, the blog, events and contests. It was the
+      right call for students, even though it shelved part of the design.
+    </p>
+    <p>
+      Beyond the screens, we built community offline too: a celebration at a local library, discounts with independent
+      bookstores, and a year-end event that led to a student anthology.
+    </p>
+    <div class="figs">
+      <figure class="fig">
+        <Image src={site1} alt="Altazor website home page, in Spanish" widths={w} width={1400} sizes={sizes} />
+        <figcaption>The live website.</figcaption>
+      </figure>
+      <figure class="fig">
+        <Image
+          src={site2}
+          alt="Altazor website page explaining how the workshop works, with Gabriel’s portrait and the 2019 anthology"
+          widths={w}
+          width={1400}
+          sizes={sizes}
+        />
+        <figcaption>How the workshop works, and the students’ anthology.</figcaption>
+      </figure>
+    </div>
+  </CaseSection>
+
+  <CaseSection id="now" number="05" eyebrow="Today" title="What success" accent="created.">
+    <p>
+      Altazor now runs around ten workshops a year, plus master classes, free classes, events and Instagram lives, with
+      students across Colombia and other Spanish-speaking countries.
+    </p>
+    <p>
+      Growth brought a new problem: Gabriel runs all of it by hand, across WhatsApp groups, Classroom and payment apps.
+      That’s the next project.
+    </p>
+    <p>
+      <a class="link-arrow" href="/work/altazor-crm/">
+        Follow the Altazor CRM build →
+      </a>
+    </p>
+  </CaseSection>
+</Case>

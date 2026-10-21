@@ -1,0 +1,132 @@
+---
+import SectionHead from '../ui/SectionHead.astro';
+import { principles, services } from '../../data/home';
+---
+
+<section id="services" class="section services" aria-labelledby="services-title">
+  <div class="container">
+    <SectionHead
+      id="services-title"
+      number="03"
+      eyebrow="Services"
+      title="For teams whose design system has"
+      accent="gaps."
+    >
+      I work with product and design teams at scale-ups in the US and Europe. Async-first, decisions in writing,
+      accessibility from day one.
+    </SectionHead>
+    <ol class="svc">
+      {services.map((service, i) => (
+        <li data-reveal style={`--d:${i}`}>
+          <p class="svc-n mono">
+            {service.n} · {service.time}
+          </p>
+          <h3 class="h3">{service.title}</h3>
+          <p class="body">{service.text}</p>
+          <ul class="svc-d">
+            {service.deliverables.map((deliverable) => (
+              <li>{deliverable}</li>
+            ))}
+          </ul>
+        </li>
+      ))}
+    </ol>
+    <ul class="principles" aria-label="How I work">
+      {principles.map((principle, i) => (
+        <li data-reveal style={`--d:${i}`}>
+          <b>{principle.title}</b> {principle.text}
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .svc {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--line);
+  }
+  .svc > li {
+    padding: 32px 32px 32px 0;
+    display: grid;
+    gap: 16px;
+    align-content: start;
+  }
+  .svc > li + li {
+    padding-left: 32px;
+    border-left: 1px solid var(--line-soft);
+  }
+  .svc .body {
+    margin: 0;
+  }
+  .svc-n {
+    margin: 0;
+    color: var(--brand);
+  }
+  .svc-d {
+    list-style: none;
+    margin: 8px 0 0;
+    padding: 0;
+    display: grid;
+    gap: 8px;
+  }
+  .svc-d li {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    display: flex;
+    gap: 10px;
+  }
+  .svc-d li::before {
+    content: '→';
+    color: var(--brand);
+  }
+  .principles {
+    list-style: none;
+    margin: clamp(48px, 6vw, 80px) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .principles li {
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    padding: 24px;
+    border-radius: 20px;
+    background: var(--glass-fill);
+    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: var(--glass-blur);
+    box-shadow: var(--glass-edge), var(--elev-1);
+  }
+  .principles b {
+    display: block;
+    color: var(--ink);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  @media (max-width: 1100px) {
+    .principles {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 900px) {
+    .svc {
+      grid-template-columns: 1fr;
+    }
+    .svc > li,
+    .svc > li + li {
+      padding: 28px 0;
+      border-left: 0;
+      border-bottom: 1px solid var(--line-soft);
+    }
+  }
+  @media (max-width: 600px) {
+    .principles {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

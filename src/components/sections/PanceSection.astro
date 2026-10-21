@@ -1,0 +1,114 @@
+---
+import Icon from '../ui/Icon.astro';
+import SectionHead from '../ui/SectionHead.astro';
+import PanceShowcase from '../PanceShowcase.astro';
+import { flagshipFacts, pance } from '../../data/pance';
+
+const links = [
+  { label: 'Docs', href: pance.docs },
+  { label: 'GitHub', href: pance.repo },
+  { label: 'npm', href: pance.npmReact },
+  { label: 'Figma', href: pance.figma },
+];
+---
+
+<section id="pance" class="section flagship" aria-labelledby="pance-title">
+  <div class="container">
+    <SectionHead
+      id="pance-title"
+      number="01"
+      eyebrow="Flagship · Open source"
+      title="Pance. A design system for products that carry"
+      accent="real-world data."
+    >
+      Social-impact and data-heavy products can’t afford inaccessible charts or tables that break on a phone. Pance is
+      the system I built for them: open source, tested in CI and shipped as real packages.
+    </SectionHead>
+    <div class="flag-grid">
+      <div class="flag-show" data-reveal>
+        <PanceShowcase />
+      </div>
+      <aside class="flag-facts" aria-label="Pance in numbers">
+        <dl>
+          {flagshipFacts.map((fact, i) => (
+            <div data-reveal style={`--d:${i + 1}`}>
+              <dt>{fact.value}</dt>
+              <dd>{fact.text}</dd>
+            </div>
+          ))}
+        </dl>
+        <div class="flag-links" data-reveal style={`--d:${flagshipFacts.length + 1}`}>
+          <a class="btn btn-primary" href="/work/pance/">
+            Read the case study <Icon name="arrow" />
+          </a>
+          <ul>
+            {links.map((link) => (
+              <li>
+                <a class="link-arrow" href={link.href}>
+                  {link.label} <Icon name="external" size={14} />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<style>
+  .flagship {
+    background:
+      radial-gradient(
+        80% 60% at 85% 10%,
+        color-mix(in srgb, var(--brand-glow) calc(var(--glow-strength) * 0.5), transparent),
+        transparent 70%
+      ),
+      linear-gradient(to bottom, transparent, var(--bg-deep) 30%, var(--bg-deep) 80%, transparent);
+  }
+  .flag-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+    gap: clamp(32px, 5vw, 72px);
+    align-items: start;
+  }
+  .flag-facts dl {
+    margin: 0;
+    display: grid;
+  }
+  .flag-facts dl > div {
+    padding: 22px 0;
+    border-top: 1px solid var(--line);
+  }
+  .flag-facts dt {
+    font-family: var(--font-display);
+    font-weight: var(--display-weight);
+    font-size: clamp(2.1rem, 3vw, 2.8rem);
+    line-height: 1;
+    letter-spacing: -0.05em;
+  }
+  .flag-facts dd {
+    margin: 8px 0 0;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+  .flag-links {
+    margin-top: 28px;
+    display: grid;
+    gap: 20px;
+    justify-items: start;
+  }
+  .flag-links ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 22px;
+  }
+  @media (max-width: 900px) {
+    .flag-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

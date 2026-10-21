@@ -1,0 +1,29 @@
+---
+// Numbered heading used by every home-page section: eyebrow, title with an
+// accented ending, and an optional intro paragraph (the default slot).
+interface Props {
+  id: string;
+  number: string;
+  eyebrow: string;
+  title: string;
+  accent: string;
+}
+const { id, number, eyebrow, title, accent } = Astro.props;
+const hasIntro = Astro.slots.has('default');
+---
+
+<div class="section-head">
+  <div>
+    <p class="eyebrow" data-reveal>
+      <b>{number}</b> {eyebrow}
+    </p>
+    <h2 {id} class="h2" data-reveal style="--d:1">
+      {title} <em>{accent}</em>
+    </h2>
+  </div>
+  {hasIntro && (
+    <p class="body" data-reveal style="--d:2">
+      <slot />
+    </p>
+  )}
+</div>

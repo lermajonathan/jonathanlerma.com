@@ -1,0 +1,45 @@
+.lab {
+  display: grid;
+  gap: 18px;
+}
+.lab-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  justify-content: space-between;
+}
+.lab-code {
+  font: 500 0.8rem/1.4 var(--font-mono);
+  color: var(--brand);
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+}
+.lab-screen {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: clamp(18px, 3vw, 32px);
+  border-radius: 22px;
+  background: var(--pance-color-bg-page);
+  border: 1px solid var(--line);
+  color: var(--pance-color-fg-default);
+  transition: background 0.4s;
+}
+.lab-col {
+  display: grid;
+  gap: 18px;
+  align-content: start;
+}
+.lab-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+@media (max-width: 760px) {
+  .lab-screen {
+    grid-template-columns: 1fr;
+  }
+}

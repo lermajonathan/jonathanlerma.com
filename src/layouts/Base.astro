@@ -1,0 +1,91 @@
+---
+import '@fontsource-variable/inter';
+import '@fontsource-variable/jetbrains-mono';
+import '@fontsource-variable/plus-jakarta-sans/wght.css';
+import '@pance/react/styles.css';
+import '../styles/brand-scope.css';
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { person } from '../data/person';
+import { THEME_BOOT_SCRIPT } from '../lib/theme-boot';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  type?: 'website' | 'article';
+}
+const {
+  title = `${person.name} — Design systems & design engineering`,
+  description = 'Senior UX/UI designer and design engineer in Cali, Colombia. I build design systems that ship — from Figma variables to npm. Creator of the Pance design system.',
+  ogImage = '/og/default.png',
+  type = 'website',
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const og = new URL(ogImage, Astro.site).href;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: person.name,
+  jobTitle: person.title,
+  description: 'Design systems & design engineering',
+  url: 'https://jonathanlerma.com/',
+  email: `mailto:${person.email}`,
+  address: { '@type': 'PostalAddress', addressLocality: 'Cali', addressCountry: 'CO' },
+  sameAs: [person.linkedin, person.github, person.figma, 'https://pance-ds.jonathanlerma.com'],
+  knowsAbout: [
+    'Design systems',
+    'Design tokens',
+    'W3C DTCG',
+    'Accessibility',
+    'WCAG 2.2',
+    'Figma',
+    'React',
+    'Data visualization',
+    'UX research',
+  ],
+};
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#041520" />
+    <meta name="color-scheme" content="dark light" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={og} />
+    <meta property="og:site_name" content={person.name} />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={og} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <script is:inline set:html={THEME_BOOT_SCRIPT} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      Skip to content
+    </a>
+    <Nav />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      import '../scripts/theme';
+      import '../scripts/inspect';
+      import '../scripts/reveal';
+    </script>
+  </body>
+</html>

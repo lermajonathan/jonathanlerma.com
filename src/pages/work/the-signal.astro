@@ -1,0 +1,79 @@
+---
+import Case from '../../layouts/Case.astro';
+import CaseSection from '../../components/case/CaseSection.astro';
+import WorkVisual from '../../components/WorkVisual.astro';
+---
+
+<Case
+  slug="the-signal"
+  title="The Signal"
+  headline="Fewer alerts,"
+  headlineAccent="better care."
+  summary="Nurses face an avalanche of EHR alerts — most irrelevant, many ignored. The Signal is a concept for a decision-support dashboard that surfaces only the patient changes that need action now."
+  description="The Signal: a concept by Jonathan Lerma for a clinical decision-support dashboard that reduces EHR alert fatigue."
+  meta={[
+    { label: 'Type', value: 'Self-initiated concept' },
+    { label: 'Role', value: 'Product designer' },
+    { label: 'Domain', value: 'Healthcare · clinical decision support' },
+    { label: 'Focus', value: 'Data visualization, triage, information density' },
+  ]}
+  links={[{ label: 'Open the prototype', href: 'https://the-signal.jonathanlerma.com' }]}
+  accent="var(--pance-color-violet-400)"
+>
+  <CaseSection id="note" number="00" eyebrow="A note" title="This is" accent="a concept.">
+    <p>
+      The Signal hasn’t been used in a hospital. It’s an exploration of a well-documented problem, and the numbers below
+      are the outcomes it would need to prove — not results.
+    </p>
+  </CaseSection>
+
+  <CaseSection id="problem" number="01" eyebrow="Problem" title="When everything is urgent," accent="nothing is.">
+    <p>
+      Electronic health records raise alerts for almost every change. Most are low value, so nurses learn to dismiss
+      them — and the critical one gets lost in the noise. That is alert fatigue, and it feeds burnout.
+    </p>
+    <p class="quote">
+      The design question: how do you show <em>less</em> without ever hiding what matters?
+    </p>
+  </CaseSection>
+
+  <CaseSection id="concept" number="02" eyebrow="Concept" title="Three levels" accent="of attention.">
+    <div class="cards">
+      <div>
+        <p class="mono">Act now</p>
+        <h3>Trends, not thresholds</h3>
+        <p>A falling blood pressure across three readings outranks one odd value.</p>
+      </div>
+      <div>
+        <p class="mono">Watch</p>
+        <h3>Visible, not loud</h3>
+        <p>Changes worth knowing stay on the board without interrupting.</p>
+      </div>
+      <div>
+        <p class="mono">FYI</p>
+        <h3>Batched</h3>
+        <p>Routine results arrive together, at natural breaks in the shift.</p>
+      </div>
+    </div>
+    <div class="vignette">
+      <WorkVisual kind="signal" />
+    </div>
+    <p class="mono">Rebuilt with Pance components. Patient data is invented.</p>
+  </CaseSection>
+
+  <CaseSection id="measure" number="03" eyebrow="What it would need to prove" title="Hypotheses," accent="not results.">
+    <ul class="ticks">
+      <li>
+        <strong>Fewer interruptions:</strong> alerts per nurse per shift fall substantially, with no missed critical
+        events.
+      </li>
+      <li>
+        <strong>Faster response</strong> to the alerts that remain.
+      </li>
+      <li>
+        <strong>Trust:</strong> nurses rate the board as reliable enough to stop double-checking the EHR.
+      </li>
+    </ul>
+    <p>The next step would be a study with a clinical team — the part a concept can’t skip.</p>
+  </CaseSection>
+</Case>

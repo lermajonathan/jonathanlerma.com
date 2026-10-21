@@ -1,0 +1,216 @@
+/* Building blocks shared by every case-study page (see components/case/CaseSection.astro). */
+
+.case-body .cs {
+  padding-block: clamp(72px, 10vw, 140px);
+  border-bottom: 1px solid var(--line-soft);
+}
+.case-body .cs-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: clamp(24px, 5vw, 80px);
+  align-items: start;
+}
+.case-body .cs-label {
+  position: sticky;
+  top: 110px;
+  display: grid;
+  gap: 14px;
+}
+.case-body .cs-label .h3 {
+  max-width: 12ch;
+}
+.case-body .cs-content {
+  display: grid;
+  gap: 28px;
+}
+.case-body .cs-content > p,
+.case-body .cs-content li {
+  color: var(--ink-soft);
+  max-width: 66ch;
+  margin: 0;
+}
+.case-body .cs-content strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+.case-body .cs-content ul.ticks {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+.case-body .cs-content ul.ticks li {
+  padding-left: 28px;
+  position: relative;
+}
+.case-body .cs-content ul.ticks li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--brand);
+}
+
+.case-body .quote {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  font-size: clamp(1.6rem, 2.6vw, 2.4rem);
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+  color: var(--ink);
+  margin: 0;
+  max-width: 24ch;
+}
+.case-body .quote em {
+  color: var(--brand);
+}
+
+.case-body .stats {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+.case-body .stats li {
+  padding: 22px 20px 22px 0;
+  display: grid;
+  gap: 8px;
+  border-bottom: 1px solid var(--line-soft);
+}
+.case-body .stats b {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  font-size: clamp(2.1rem, 3.4vw, 3.1rem);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+.case-body .stats span {
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+}
+
+.case-body .cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+.case-body .cards > * {
+  padding: 24px;
+  border-radius: 20px;
+  background: var(--glass-fill);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-edge), var(--elev-2);
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  transition:
+    transform 0.7s var(--ease-out),
+    box-shadow 0.7s var(--ease-out);
+}
+.case-body .cards > *:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--glass-edge), var(--elev-3);
+}
+.case-body .cards h3,
+.case-body .cards h4 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.case-body .cards p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+.case-body .cards .mono {
+  color: var(--brand);
+}
+/* A big figure inside a card, e.g. a contrast ratio. */
+.case-body .cards .card-figure {
+  font-size: 2.3rem;
+}
+
+.case-body .fig {
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+.case-body .fig img {
+  border-radius: 18px;
+  width: 100%;
+  background: #fff;
+  box-shadow:
+    0 0 0 1px var(--line-soft),
+    var(--elev-2);
+}
+.case-body .fig figcaption {
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+}
+.case-body .figs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.case-body .wide {
+  margin-top: clamp(40px, 5vw, 72px);
+}
+
+/* A product vignette (components/WorkVisual.astro) shown full width. */
+.case-body .vignette {
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid var(--line-soft);
+  min-height: 420px;
+  display: grid;
+}
+
+/* A dot-and-line list (release history, build log). */
+.case-body .timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  border-left: 1px solid var(--line);
+}
+.case-body .timeline li {
+  display: grid;
+  grid-template-columns: var(--label-width, 90px) 1fr;
+  gap: 16px;
+  padding: 14px 0 14px 22px;
+  position: relative;
+  color: var(--ink-soft);
+}
+.case-body .timeline li::before {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: 21px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--dot, var(--pance-color-aqua-400));
+}
+.case-body .timeline b {
+  font: 600 0.95rem/1.4 var(--font-mono);
+  color: var(--ink);
+}
+
+@media (max-width: 900px) {
+  .case-body .cs-grid {
+    grid-template-columns: 1fr;
+  }
+  .case-body .cs-label {
+    position: static;
+  }
+  .case-body .figs {
+    grid-template-columns: 1fr;
+  }
+}

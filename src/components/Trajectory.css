@@ -1,0 +1,245 @@
+.traj-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+.traj-count {
+  margin: 0;
+  font: 500 0.75rem/1 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+/* The spine (::before) and its lit portion (::after), filled by --fill (0–1). */
+.traj-list {
+  --fill: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: grid;
+  gap: 28px;
+}
+.traj-list::before,
+.traj-list::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 2px;
+  margin-left: -1px;
+  border-radius: 2px;
+}
+.traj-list::before {
+  bottom: 0;
+  background: linear-gradient(to bottom, transparent, var(--line) 4%, var(--line) 96%, transparent);
+}
+.traj-list::after {
+  height: calc(var(--fill) * 100%);
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--pance-color-aqua-400) 8%,
+    var(--pance-color-emerald-400) 55%,
+    var(--pance-color-violet-400)
+  );
+  box-shadow: 0 0 12px color-mix(in srgb, var(--pance-color-aqua-400) 60%, transparent);
+  transition: height 0.15s linear;
+}
+
+/* Each track gets a tone used by the node, connector, glow and pill. */
+.traj-item {
+  --tone: var(--pance-color-slate-400);
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 72px;
+}
+.traj-item[data-track='milestone'] {
+  --tone: var(--pance-color-aqua-400);
+}
+.traj-item[data-track='work'] {
+  --tone: var(--pance-color-emerald-400);
+}
+.traj-item[data-track='education'] {
+  --tone: var(--pance-color-violet-400);
+}
+/* Alternate sides overlap vertically so the timeline stays dense. */
+.traj-item + .traj-item {
+  margin-top: -96px;
+}
+.traj-item.is-left .traj-card {
+  grid-column: 1;
+}
+.traj-item.is-right .traj-card {
+  grid-column: 2;
+}
+
+.traj-node {
+  position: absolute;
+  left: 50%;
+  top: 30px;
+  z-index: 2;
+  width: 16px;
+  height: 16px;
+  margin-left: -8px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 30%,
+    #fff 0 14%,
+    var(--tone) 40%,
+    color-mix(in srgb, var(--tone) 55%, #000) 100%
+  );
+  box-shadow:
+    0 0 0 4px var(--bg),
+    0 0 0 5px color-mix(in srgb, var(--tone) 40%, transparent),
+    0 0 22px 2px color-mix(in srgb, var(--tone) 55%, transparent);
+}
+.traj-link {
+  position: absolute;
+  top: 37px;
+  height: 2px;
+  width: 46px;
+  border-radius: 2px;
+  z-index: 1;
+}
+.traj-item.is-left .traj-link {
+  right: calc(50% + 10px);
+  background: linear-gradient(to left, var(--tone), transparent);
+}
+.traj-item.is-right .traj-link {
+  left: calc(50% + 10px);
+  background: linear-gradient(to right, var(--tone), transparent);
+}
+
+.traj-card {
+  position: relative;
+  isolation: isolate;
+  padding: 24px 26px 26px;
+  border-radius: 22px;
+  background:
+    radial-gradient(120% 80% at 0% 0%, color-mix(in srgb, var(--tone) 14%, transparent), transparent 55%),
+    var(--glass-fill);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  box-shadow:
+    var(--glass-edge),
+    var(--elev-2),
+    0 30px 70px -40px color-mix(in srgb, var(--tone) 45%, transparent);
+  transition:
+    transform 0.7s var(--ease-out),
+    box-shadow 0.7s var(--ease-out);
+}
+/* Rim light: a gradient hairline drawn with a mask. */
+.traj-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  z-index: -1;
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, var(--tone) 70%, white) 0%,
+    color-mix(in srgb, var(--tone) 20%, transparent) 28%,
+    transparent 60%,
+    rgb(255 255 255 / 0.1) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0.75;
+}
+.traj-card:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    var(--glass-edge),
+    var(--elev-3),
+    0 40px 90px -40px color-mix(in srgb, var(--tone) 65%, transparent);
+}
+
+.traj-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 14px;
+  font: 500 0.72rem/1 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.traj-date {
+  color: var(--ink);
+}
+.traj-track {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--tone) 12%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tone) 28%, transparent);
+  color: var(--ink-soft);
+}
+.traj-track::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--tone);
+  box-shadow: 0 0 8px var(--tone);
+}
+.traj-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  font-size: 1.3rem;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+.traj-org {
+  margin: 6px 0 0;
+  color: var(--brand);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.traj-text {
+  margin: 10px 0 0;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+@media (max-width: 900px) {
+  .traj-list::before,
+  .traj-list::after {
+    left: 8px;
+  }
+  .traj-link {
+    display: none;
+  }
+  .traj-item {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding-left: 36px;
+  }
+  .traj-item.is-left .traj-card,
+  .traj-item.is-right .traj-card {
+    grid-column: 1;
+  }
+  .traj-node {
+    left: 8px;
+  }
+  .traj-item + .traj-item {
+    margin-top: 0;
+  }
+}

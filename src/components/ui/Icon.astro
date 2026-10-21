@@ -1,0 +1,17 @@
+---
+// Phosphor icons used by the site chrome (Pance's icon family), inlined so
+// links render without JavaScript. Always decorative: the label is the text
+// next to them, or an aria-label on the control.
+import { iconPaths, type IconName } from './icon-paths';
+
+interface Props {
+  name: IconName;
+  size?: number;
+  class?: string;
+}
+const { name, size = 16, class: className } = Astro.props;
+---
+
+<svg class={className} width={size} height={size} viewBox="0 0 256 256" aria-hidden="true">
+  <path fill="currentColor" d={iconPaths[name]}></path>
+</svg>

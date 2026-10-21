@@ -1,0 +1,20 @@
+Copyright (c) 2026 Jonathan Lerma. All rights reserved.
+
+This repository contains the source code, text, images and design of
+jonathanlerma.com. It is public so that it can be read and reviewed. No
+licence is granted to copy, modify, publish, distribute or reuse any part of
+it, in whole or in part, without prior written permission from the author.
+
+Requests: design@jonathanlerma.com
+
+Third-party components keep their own licences and are not covered by the
+reservation above, including:
+
+- Pance design system (@pance/react, @pance/tokens): MIT licence.
+- Inter, Plus Jakarta Sans and JetBrains Mono typefaces (via Fontsource):
+  SIL Open Font License 1.1.
+- Phosphor icons: MIT licence.
+- Other npm dependencies: see each package's licence in node_modules.
+
+Screens and materials from client projects shown in the case studies belong
+to their respective owners.

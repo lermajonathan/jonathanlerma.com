@@ -1,0 +1,123 @@
+---
+import { Image } from 'astro:assets';
+import Icon from '../ui/Icon.astro';
+import SectionHead from '../ui/SectionHead.astro';
+import { lab, type LabImage } from '../../data/home';
+import chakra from '../../assets/img/chakra.webp';
+import kafka from '../../assets/img/kafka.webp';
+import emily from '../../assets/img/emily.webp';
+import wellOfWords from '../../assets/img/well-of-words.webp';
+
+const images: Record<LabImage, ImageMetadata> = { chakra, kafka, emily, 'well-of-words': wellOfWords };
+---
+
+<section id="lab" class="section lab" aria-labelledby="lab-title">
+  <div class="container">
+    <SectionHead id="lab-title" number="05" eyebrow="Lab" title="Experiments," accent="mostly for writers.">
+      Where I try ideas before they’re ready for clients: earlier design systems, a writing tool and a poetry toy.
+    </SectionHead>
+    <ul class="lab-grid">
+      {lab.map((item, i) => (
+        <li data-reveal style={`--d:${i}`}>
+          <a href={item.url} class="lab-card">
+            <div class="lab-img">
+              <Image
+                src={images[item.image]}
+                alt=""
+                widths={[480, 800]}
+                width={800}
+                sizes="(max-width: 700px) 100vw, 25vw"
+                loading="lazy"
+              />
+            </div>
+            <p class="mono">{item.type}</p>
+            <h3 class="lab-title">
+              {item.title} <Icon name="external" size={14} />
+            </h3>
+            <p class="lab-text">{item.text}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .lab-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .lab-card {
+    display: grid;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .lab-img {
+    aspect-ratio: 4 / 5;
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--bg-deep);
+    margin-bottom: 8px;
+    box-shadow:
+      inset 0 0 0 1px rgb(255 255 255 / 0.08),
+      var(--elev-2);
+    transition:
+      transform 0.8s var(--ease-out),
+      box-shadow 0.8s var(--ease-out);
+  }
+  .lab-card:hover .lab-img {
+    transform: translateY(-6px);
+    box-shadow:
+      inset 0 0 0 1px rgb(255 255 255 / 0.12),
+      var(--elev-3);
+  }
+  .lab-img :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition:
+      transform 1.4s var(--ease-out),
+      filter 0.6s;
+    filter: saturate(0.85);
+  }
+  .lab-card:hover .lab-img :global(img) {
+    transform: scale(1.05);
+    filter: saturate(1.05);
+  }
+  .lab-card .mono {
+    margin: 0;
+  }
+  .lab-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: var(--display-weight);
+    font-size: 1.45rem;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .lab-title :global(svg) {
+    opacity: 0.5;
+  }
+  .lab-text {
+    margin: 0;
+    color: var(--ink-muted);
+    font-size: 0.92rem;
+  }
+  @media (max-width: 1100px) {
+    .lab-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 600px) {
+    .lab-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

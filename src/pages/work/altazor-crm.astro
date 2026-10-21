@@ -1,0 +1,134 @@
+---
+import Case from '../../layouts/Case.astro';
+import CaseSection from '../../components/case/CaseSection.astro';
+import WorkVisual from '../../components/WorkVisual.astro';
+---
+
+<Case
+  slug="altazor-crm"
+  title="Altazor CRM"
+  headline="One tool for a school"
+  headlineAccent="run by hand."
+  summary="Altazor’s founder runs ten workshops a year from WhatsApp groups, Google Classroom and payment apps. I’m designing an internal tool that brings it together — the first production product built on Pance."
+  meta={[
+    { label: 'Role', value: 'Product designer & design engineer' },
+    { label: 'Status', value: 'In progress · 2026' },
+    { label: 'Users', value: 'Gabriel Rodríguez, Altazor’s director' },
+    { label: 'Built with', value: '@pance/react · @pance/tokens · WhatsApp Business API' },
+  ]}
+  accent="var(--pance-color-emerald-400)"
+>
+  <CaseSection id="today" number="01" eyebrow="Today" title="A patchwork," accent="one person.">
+    <p>
+      Each workshop has its own WhatsApp group, plus a general community chat. Assignments and feedback live in Google
+      Classroom. Payments arrive through Nequi and other platforms. Enrolment happens on the website. The only thing
+      connecting them is Gabriel’s memory.
+    </p>
+    <div class="cards">
+      <div>
+        <p class="mono">Messaging</p>
+        <h3>WhatsApp</h3>
+        <p>One group per workshop and a community chat.</p>
+      </div>
+      <div>
+        <p class="mono">Teaching</p>
+        <h3>Google Classroom</h3>
+        <p>Assignments, corrections and audio notes.</p>
+      </div>
+      <div>
+        <p class="mono">Payments</p>
+        <h3>Nequi & others</h3>
+        <p>Confirmed by hand, one by one.</p>
+      </div>
+      <div>
+        <p class="mono">Enrolment</p>
+        <h3>Website</h3>
+        <p>Supabase and PayU behind the public site.</p>
+      </div>
+    </div>
+  </CaseSection>
+
+  <CaseSection
+    id="approach"
+    number="02"
+    eyebrow="Approach"
+    title="Tailored to his workflow,"
+    accent="not a generic CRM."
+  >
+    <ul class="ticks">
+      <li>
+        <strong>Students at the centre.</strong> One record per student: workshops, payments, messages and progress.
+      </li>
+      <li>
+        <strong>WhatsApp, connected.</strong> Messages to a group or a person from the same place, through the WhatsApp
+        Business API.
+      </li>
+      <li>
+        <strong>Two identities, on purpose.</strong> Altazor’s public website keeps the look its audience knows. The
+        internal tool uses Pance — it needs dense tables and forms, not a brand.
+      </li>
+    </ul>
+    <div class="vignette">
+      <WorkVisual kind="crm" />
+    </div>
+    <p class="mono">Early direction, built with Pance components. Names are invented.</p>
+  </CaseSection>
+
+  <CaseSection id="log" number="03" eyebrow="Build log" title="Designed" accent="in the open.">
+    <Fragment slot="intro">This page grows as the project does.</Fragment>
+    <ol class="log">
+      <li>
+        <b>Now</b>
+        <span>
+          Discovery with Gabriel: mapping one workshop end to end, from announcement to the last feedback note.
+        </span>
+      </li>
+      <li>
+        <b>Next</b>
+        <span>Service blueprint and the student record, then the first screens in Pance.</span>
+      </li>
+      <li>
+        <b>Then</b>
+        <span>A pilot with one live workshop before replacing anything he uses today.</span>
+      </li>
+    </ol>
+  </CaseSection>
+</Case>
+
+<style>
+  .log {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    border-left: 1px solid var(--line);
+  }
+  .log li {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 16px;
+    padding: 16px 0 16px 22px;
+    position: relative;
+    color: var(--ink-soft);
+  }
+  .log li::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 23px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: 2px solid var(--pance-color-emerald-400);
+    background: var(--bg);
+  }
+  .log li:first-child::before {
+    background: var(--pance-color-emerald-400);
+  }
+  .log b {
+    font: 600 0.85rem/1.6 var(--font-mono);
+    color: var(--ink);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+</style>

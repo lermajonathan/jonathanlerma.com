@@ -1,0 +1,92 @@
+---
+import { person } from '../data/person';
+import { pance } from '../data/pance';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+      <p class="built" data-spec="footer · font.mono 12 · fg.muted">
+        Built with <a href={pance.docs}>Pance {pance.version}</a> · Astro · GitHub Pages
+      </p>
+      <ul class="social">
+        <li>
+          <a href={person.linkedin}>LinkedIn</a>
+        </li>
+        <li>
+          <a href={person.github}>GitHub</a>
+        </li>
+        <li>
+          <a href={person.figma}>Figma Community</a>
+        </li>
+        <li>
+          <a href={`mailto:${person.email}`}>Email</a>
+        </li>
+      </ul>
+    </div>
+    <div class="row muted">
+      <p>
+        © {year} {person.name}. All rights reserved. · {person.location}
+      </p>
+      <p class="hint">
+        Press <kbd>I</kbd> to see the tokens behind this page.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--line-soft);
+    padding-block: 40px 48px;
+    font-size: 0.9rem;
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px 32px;
+  }
+  .row + .row {
+    margin-top: 20px;
+  }
+  p {
+    margin: 0;
+  }
+  .built {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-muted);
+  }
+  .built a {
+    color: var(--brand);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .social {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .social a {
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+  .social a:hover {
+    color: var(--ink);
+  }
+  .muted {
+    color: var(--ink-muted);
+    font-size: 0.82rem;
+  }
+  @media (hover: none) {
+    .hint {
+      display: none;
+    }
+  }
+</style>

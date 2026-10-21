@@ -1,0 +1,338 @@
+---
+import Case from '../../layouts/Case.astro';
+import CaseSection from '../../components/case/CaseSection.astro';
+import ThemeLab from '../../components/ThemeLab';
+import PanceShowcase from '../../components/PanceShowcase.astro';
+import { auditFindings, decisions, facts, libraryStats, pance, qualityGates, releases } from '../../data/pance';
+import { formatCount, spellOut } from '../../lib/format';
+---
+
+<Case
+  slug="pance"
+  title="Pance Design System"
+  headline="One source of truth,"
+  headlineAccent="from Figma to npm."
+  summary="Pance is an open-source design system for social-impact and data-heavy products. I took it from a generated docs site to a tested, versioned system with a Figma library, React components and tokens on npm."
+  description={`Case study: how Jonathan Lerma built Pance, an accessible, token-driven design system — ${facts.tokens} tokens, ${formatCount(facts.figmaVariants)} Figma variants, WCAG 2.2 AA tested in CI, published on npm.`}
+  meta={[
+    { label: 'Role', value: 'Creator & maintainer — design, engineering, docs' },
+    { label: 'Year', value: '2026' },
+    { label: 'Stack', value: 'W3C DTCG tokens · React 19 · Tailwind v4 · Figma variables · GitHub Actions' },
+    { label: 'Licence', value: `MIT · v${pance.version}` },
+  ]}
+  links={[
+    { label: 'Documentation', href: pance.docs },
+    { label: 'GitHub', href: pance.repo },
+    { label: 'npm', href: pance.npmReact },
+    { label: 'Figma Community', href: pance.figma },
+  ]}
+>
+  <CaseSection id="try" number="01" eyebrow="Try it" title="Change the brand." accent="Nothing else.">
+    <Fragment slot="intro">
+      These are the published @pance/react components. Pick a ramp and one attribute re-points every token that aliases
+      it, in light and dark.
+    </Fragment>
+    <ThemeLab client:visible />
+    <p class="mono">Tip: switch the site to light mode from the top bar — the same components follow.</p>
+  </CaseSection>
+
+  <CaseSection
+    id="problem"
+    number="02"
+    eyebrow="The problem"
+    title="It looked finished."
+    accent="It wasn’t a system yet."
+  >
+    <p>
+      Pance began as a documentation site generated with Figma Make. The pages were polished, but the components didn’t
+      read from tokens, the docs and the code disagreed, and some of what looked right was failing accessibility in ways
+      you can’t see.
+    </p>
+    <p>
+      So before building anything new, I extracted it into a repo and wrote an audit: what the docs say, what the code
+      does, and a fix for each gap. Some of what it found:
+    </p>
+    <div class="cards">
+      {auditFindings.map((finding) => (
+        <div>
+          <p class="mono">{finding.label}</p>
+          <h3 class="quote card-figure">{finding.value}</h3>
+          <p>{finding.text}</p>
+        </div>
+      ))}
+    </div>
+    <p>
+      Docs and code also disagreed on the basics: the breakpoint (480 vs. 640 px), the H3 size (18 vs. 20 px), disabled
+      opacity (four different values). Each one became a recorded decision.
+    </p>
+  </CaseSection>
+
+  <CaseSection id="arch" number="03" eyebrow="Architecture" title="Three tiers," accent="five outputs.">
+    <Fragment slot="intro">
+      A change starts in one JSON file and reaches design and code in the same pull request.
+    </Fragment>
+    <figure class="flow" aria-label="How a token change flows through Pance">
+      <ol class="flow-tiers">
+        <li>
+          <span class="mono">Tier 1</span>
+          <b>Primitives</b>
+          <small>aqua.700 = #0e7490</small>
+        </li>
+        <li>
+          <span class="mono">Tier 2</span>
+          <b>Semantic</b>
+          <small>intent.primary.solid → aqua.700</small>
+        </li>
+        <li>
+          <span class="mono">Tier 3</span>
+          <b>Components</b>
+          <small>button.primary.bg → intent.primary.solid</small>
+        </li>
+      </ol>
+      <div class="flow-arrow" aria-hidden="true"></div>
+      <ul class="flow-out">
+        <li>
+          <b>CSS variables</b>
+          <small>--pance-color-*, light + dark</small>
+        </li>
+        <li>
+          <b>Tailwind v4 theme</b>
+          <small>bg-primary-solid, text-ink-muted</small>
+        </li>
+        <li>
+          <b>Typed JS object</b>
+          <small>charts, canvas, tests</small>
+        </li>
+        <li>
+          <b>Figma variables</b>
+          <small>{facts.figmaVariables}, Light and Dark modes</small>
+        </li>
+        <li>
+          <b>@pance/react</b>
+          <small>{facts.reactComponents} components on npm</small>
+        </li>
+      </ul>
+      <figcaption>
+        {facts.tokens} tokens in the W3C DTCG format. Components may only read semantic or component tokens —{' '}
+        <code>lint:tokens</code> fails the build otherwise.
+      </figcaption>
+    </figure>
+  </CaseSection>
+
+  <CaseSection id="decisions" number="04" eyebrow="Decisions" title="Written down," accent="so they last.">
+    <Fragment slot="intro">
+      Pance keeps a register of design decision records (DDR-DS). A future contributor can read why something is the way
+      it is — and argue with it.
+    </Fragment>
+    <div class="cards">
+      {decisions.map((decision) => (
+        <div>
+          <p class="mono">{decision.id}</p>
+          <h3>{decision.title}</h3>
+          <p>{decision.text}</p>
+        </div>
+      ))}
+    </div>
+  </CaseSection>
+
+  <CaseSection
+    id="quality"
+    number="05"
+    eyebrow="Quality"
+    title="Accessibility checked"
+    accent="by machines,"
+    after="every push."
+  >
+    <Fragment slot="intro">Memory and good intentions don’t scale. CI does.</Fragment>
+    <dl class="gates">
+      {qualityGates.map((gate) => (
+        <div>
+          <dt>{gate.name}</dt>
+          <dd>{gate.text}</dd>
+        </div>
+      ))}
+    </dl>
+    <p>
+      Every interactive control also gets at least a 24 × 24 px target (WCAG 2.5.8) through an invisible hit area, and
+      panels like popovers and date pickers shift to stay inside the viewport.
+    </p>
+  </CaseSection>
+
+  <CaseSection id="product" number="06" eyebrow="Built for data" title="Charts and tables" accent="are first-class.">
+    <Fragment slot="intro">
+      Metric cards, line, bar, diverging, heatmap, donut and scatter charts, meters and a data table with expandable
+      rows — each with a table view for screen readers.
+    </Fragment>
+    <PanceShowcase />
+  </CaseSection>
+
+  <CaseSection
+    id="ship"
+    number="07"
+    eyebrow="Shipping"
+    title={`${spellOut(releases.length)} releases,`}
+    accent="no stored secrets."
+  >
+    <Fragment slot="intro">
+      Published from GitHub Actions with npm trusted publishing and provenance. The docs deploy to GitHub Pages on every
+      push to main.
+    </Fragment>
+    <ol class="timeline">
+      {releases.map((release) => (
+        <li>
+          <b>{release.version}</b>
+          <span>{release.text}</span>
+        </li>
+      ))}
+    </ol>
+    <ul class="stats">
+      {libraryStats.map((stat) => (
+        <li>
+          <b>{stat.value}</b>
+          <span>{stat.label}</span>
+        </li>
+      ))}
+    </ul>
+  </CaseSection>
+
+  <CaseSection id="next" number="08" eyebrow="What’s next" title="Proof in" accent="real products.">
+    <ul class="ticks">
+      <li>
+        <strong>Altazor CRM</strong> — the first production app built on Pance, for a creative writing school.
+      </li>
+      <li>
+        <strong>Screen-reader passes</strong> with NVDA and VoiceOver on the dialog, combobox, data table and date
+        picker.
+      </li>
+      <li>
+        <strong>Figma Code Connect</strong>, and dark values for component tokens in Figma.
+      </li>
+      <li>
+        <strong>This website.</strong> It’s built with @pance/react and @pance/tokens plus a thin editorial layer: a
+        display typeface, re-pointed font tokens and a generated brand scope. Press <kbd>I</kbd> to see it.
+      </li>
+    </ul>
+  </CaseSection>
+</Case>
+
+<style>
+  .flow {
+    margin: 0;
+    display: grid;
+    gap: 20px;
+  }
+  .flow-tiers,
+  .flow-out {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 12px;
+  }
+  .flow-tiers {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .flow-out {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .flow li {
+    padding: 18px;
+    border-radius: 18px;
+    background: var(--glass-fill);
+    box-shadow: var(--glass-edge), var(--elev-1);
+    display: grid;
+    gap: 6px;
+    position: relative;
+  }
+  .flow-tiers li {
+    box-shadow:
+      var(--glass-edge),
+      inset 0 0 0 1px color-mix(in srgb, var(--pance-color-aqua-400) 30%, transparent),
+      var(--elev-2),
+      0 24px 50px -30px color-mix(in srgb, var(--pance-color-aqua-500) 50%, transparent);
+  }
+  .flow-tiers li + li::before {
+    content: '→';
+    position: absolute;
+    left: -12px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--brand);
+  }
+  .flow b {
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .flow small {
+    font: 500 0.75rem/1.4 var(--font-mono);
+    color: var(--ink-muted);
+  }
+  .flow-arrow {
+    height: 36px;
+    position: relative;
+  }
+  .flow-arrow::before {
+    content: '';
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    top: 0;
+    height: 18px;
+    border: 1px solid var(--line);
+    border-top: 0;
+    border-radius: 0 0 14px 14px;
+  }
+  .flow-arrow::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 18px;
+    width: 1px;
+    height: 18px;
+    background: var(--line);
+  }
+  .flow figcaption {
+    font-size: 0.88rem;
+    color: var(--ink-muted);
+  }
+  .flow code {
+    font-family: var(--font-mono);
+    color: var(--brand);
+  }
+  .gates {
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 28px;
+  }
+  .gates div {
+    padding: 18px 0;
+    border-top: 1px solid var(--line);
+  }
+  .gates dt {
+    font: 500 0.8rem/1 var(--font-mono);
+    color: var(--brand);
+    letter-spacing: 0.04em;
+  }
+  .gates dd {
+    margin: 8px 0 0;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+  @media (max-width: 900px) {
+    .flow-tiers {
+      grid-template-columns: 1fr;
+    }
+    .flow-tiers li + li::before {
+      left: 50%;
+      top: -6px;
+      transform: translate(-50%, -50%) rotate(90deg);
+    }
+    .flow-out {
+      grid-template-columns: 1fr 1fr;
+    }
+    .gates {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

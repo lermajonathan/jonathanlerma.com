@@ -1,0 +1,36 @@
+.picker {
+  display: grid;
+  gap: 24px;
+}
+.picker-set {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+.picker-set legend {
+  margin-bottom: 14px;
+  padding: 0;
+}
+.picker-grid {
+  display: grid;
+  gap: 10px;
+}
+/* Reserve room so the actions don't jump when the reply changes length. */
+.picker-reply {
+  margin: 0;
+  color: var(--ink-soft);
+  min-height: 3.2em;
+}
+.picker-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+}
+.picker-email {
+  text-transform: none;
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+}

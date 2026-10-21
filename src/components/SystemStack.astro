@@ -1,0 +1,474 @@
+---
+// The hero's signature visual: an exploded view of a design system.
+// Every layer is real Pance: primitives and semantic tokens are read
+// from @pance/tokens; the component sheet and the product screen are
+// @pance/react rendered to static HTML at build time.
+// Lower planes are partly covered by the ones above, so their content
+// is anchored to the front-left edge, the part that stays visible.
+import {
+  Button,
+  Badge,
+  Delta,
+  Sparkline,
+  Progress,
+  Toggle,
+  Checkbox,
+  Radio,
+  Spinner,
+  AvatarGroup,
+  SegmentedControl,
+  Field,
+  Input,
+} from '@pance/react';
+const steps = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
+const ramps = ['slate', 'aqua', 'sky', 'emerald', 'amber', 'rose', 'violet'];
+// [token, light ref, dark ref]
+const semantic = [
+  ['bg.surface', 'white', 'slate-900'],
+  ['fg.default', 'slate-900', 'slate-50'],
+  ['fg.brand', 'aqua-700', 'aqua-400'],
+  ['border.focus', 'aqua-600', 'aqua-400'],
+  ['primary.soft', 'aqua-50', 'aqua-950'],
+  ['primary.solid', 'aqua-700', 'aqua-700'],
+  ['success.solid', 'emerald-700', 'emerald-700'],
+  ['danger.solid', 'rose-600', 'rose-600'],
+];
+const noop = () => {};
+---
+
+<div class="stage" aria-hidden="true" inert data-stack>
+  <div class="stack">
+    <!-- top · Product -->
+    <div class="plane plane-product" style="--i:3" data-spec="product · @pance/react rendered at build time">
+      <span class="tag">Product</span>
+      <div class="win">
+        <div class="win-bar">
+          <span></span>
+          <span></span>
+          <span></span>
+          <em>afterquake · recovery</em>
+        </div>
+        <div class="win-body">
+          <div class="win-head">
+            <div>
+              <p class="win-kicker">Cali · Valle del Cauca</p>
+              <p class="win-title">Recovery overview</p>
+            </div>
+            <Badge severity="success" dot>
+              Live
+            </Badge>
+          </div>
+          <div class="metrics">
+            <div class="stat">
+              <span class="stat-l">Homes inspected</span>
+              <span class="stat-v">
+                12,480 <Delta value={8.2} />
+              </span>
+              <Sparkline data={[4, 6, 5, 8, 9, 11, 12]} tone="positive" size="sm" />
+            </div>
+            <div class="stat">
+              <span class="stat-l">Shelters open</span>
+              <span class="stat-v">
+                37 <Delta value={-12} upIsGood={false} />
+              </span>
+              <Sparkline data={[52, 50, 47, 44, 41, 39, 37]} tone="positive" size="sm" />
+            </div>
+          </div>
+          <Progress value={64} label="Water restored" showValue />
+        </div>
+      </div>
+    </div>
+    <!-- Primitives -->
+    <div class="plane plane-prim" style="--i:2" data-spec="primitives · 7 ramps × 11 steps · @pance/tokens">
+      <span class="tag">Primitives</span>
+      <div class="ramps">
+        {ramps.map((r) => (
+          <div class="ramp">
+            <b>{r}</b>
+            {steps.map((st) => (
+              <i style={`background: var(--pance-color-${r}-${st})`}></i>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+    <!-- Semantic tokens -->
+    <div class="plane plane-sem" style="--i:1" data-spec="semantic tokens · one name, a light and a dark value">
+      <span class="tag">Semantic tokens</span>
+      <div class="sem">
+        <p class="sem-head">
+          <span>L</span>
+          <span>D</span>
+          <span>token</span>
+          <span>light → dark</span>
+        </p>
+        <ul class="sem-list">
+          {semantic.map(([name, l, d]) => (
+            <li>
+              <i style={`background: var(--pance-color-${l})`}></i>
+              <i style={`background: var(--pance-color-${d})`}></i>
+              <code>{name}</code>
+              <span>
+                {l.replace('-', '.')}
+                {l === d ? '' : ` → ${d.replace('-', '.')}`}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+    <!-- Components -->
+    <div class="plane plane-comp" style="--i:0" data-spec="components · severity × variant × size · @pance/react">
+      <span class="tag">Components</span>
+      <div class="sheet">
+        <div class="row row-wide">
+          <SegmentedControl
+            size="sm"
+            label="Range"
+            options={[
+              { value: 'd', label: 'Day' },
+              { value: 'w', label: 'Week' },
+              { value: 'm', label: 'Month' },
+            ]}
+            value="w"
+            onChange={noop}
+          />
+          <div class="field">
+            <Field label="Municipality">
+              <Input defaultValue="Cali" />
+            </Field>
+          </div>
+        </div>
+        <div class="row">
+          <Toggle on={true} onChange={noop} label="Alerts" size="sm" />
+          <Checkbox checked={true} onChange={noop} label="Verified" size="sm" />
+          <Radio checked={true} onChange={noop} label="Weekly" size="sm" />
+          <AvatarGroup
+            people={[{ name: 'Valentina Ruiz' }, { name: 'Mateo Cárdenas' }, { name: 'Lucía Gómez' }]}
+            max={3}
+          />
+        </div>
+        <div class="row">
+          <Badge severity="success" dot size="sm">
+            Flowing
+          </Badge>
+          <Badge severity="warning" variant="solid" size="sm">
+            Warning
+          </Badge>
+          <Badge severity="danger" variant="outlined" size="sm">
+            Danger
+          </Badge>
+          <Badge severity="info" size="sm">
+            Info
+          </Badge>
+          <Badge severity="help" size="sm">
+            Help
+          </Badge>
+        </div>
+        <div class="row">
+          <Button severity="primary" size="sm">
+            Publish
+          </Button>
+          <Button severity="primary" variant="outlined" size="sm">
+            Preview
+          </Button>
+          <Button severity="secondary" variant="text" size="sm">
+            Cancel
+          </Button>
+          <Spinner size="sm" label="Loading" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { clamp01 } from '../lib/progress';
+
+  // The layers spread apart over the first ~0.9 screen of scrolling (--p from 0 to 1).
+  const SPREAD_DISTANCE = 0.9;
+  const stage = document.querySelector<HTMLElement>('[data-stack]');
+  if (stage) {
+    requestAnimationFrame(() => stage.classList.add('is-ready'));
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      let frame = 0;
+      const update = () => {
+        const progress = clamp01(window.scrollY / (window.innerHeight * SPREAD_DISTANCE));
+        stage.style.setProperty('--p', progress.toFixed(3));
+        frame = 0;
+      };
+      window.addEventListener('scroll', () => (frame ||= requestAnimationFrame(update)), { passive: true });
+      update();
+    }
+  }
+</script>
+
+<style>
+  .stage {
+    --p: 0;
+    --gap: 0px;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    perspective: 2400px;
+    perspective-origin: 50% 30%;
+    pointer-events: none;
+    user-select: none;
+  }
+  .stage:global(.is-ready) {
+    --gap: calc(92px + var(--p) * 60px);
+  }
+  .stack {
+    position: absolute;
+    left: 50%;
+    top: 56%;
+    width: min(440px, 92%);
+    aspect-ratio: 440 / 300;
+    transform-style: preserve-3d;
+    transform: translate(-50%, -50%) rotateX(calc(56deg - var(--p) * 12deg)) rotateZ(calc(-36deg + var(--p) * 8deg));
+    transition: transform 0.2s linear;
+  }
+  .plane {
+    position: absolute;
+    inset: 0;
+    border-radius: 18px;
+    transform: translateZ(calc(var(--i) * var(--gap)));
+    transition: transform 1.6s var(--ease-out);
+    transition-delay: calc((3 - var(--i)) * 120ms);
+    border: 1px solid var(--line);
+    background: color-mix(in srgb, var(--bg-raised) 72%, transparent);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 40px 80px -40px rgb(0 0 0 / 0.55);
+    overflow: hidden;
+    transform-style: flat;
+  }
+
+  .plane-product {
+    background: var(--pance-color-bg-surface);
+    border-color: color-mix(in srgb, var(--pance-color-aqua-400) 35%, var(--line));
+    box-shadow:
+      0 50px 100px -40px color-mix(in srgb, var(--pance-color-aqua-500) 45%, transparent),
+      0 0 0 1px rgb(255 255 255 / 0.02);
+  }
+
+  /* Primitives: full-bleed ramps, so any visible strip reads as colour */
+  .plane-prim {
+    padding: 16px 18px 26px;
+    display: grid;
+    align-content: end;
+  }
+  .ramps {
+    display: grid;
+    gap: 5px;
+  }
+  .ramp {
+    display: grid;
+    grid-template-columns: 46px repeat(11, 1fr);
+    gap: 4px;
+    align-items: center;
+  }
+  .ramp b {
+    font: 500 9px/1 var(--font-mono);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .ramp i {
+    aspect-ratio: 1.5;
+    border-radius: 4px;
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.06);
+  }
+
+  /* Semantic: one name, two values */
+  .plane-sem {
+    padding: 14px 18px 28px;
+    display: grid;
+    align-content: end;
+  }
+  .sem {
+    display: grid;
+    gap: 8px;
+  }
+  .sem-head {
+    margin: 0;
+    display: grid;
+    grid-template-columns: 20px 20px 120px 1fr;
+    column-gap: 8px;
+    font: 500 8.5px/1 var(--font-mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .sem-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 4px;
+  }
+  .sem-list li {
+    display: grid;
+    grid-template-columns: 20px 20px 120px 1fr;
+    gap: 8px;
+    align-items: center;
+    padding: 4px 0;
+    border-top: 1px solid var(--line-soft);
+  }
+  .sem-list span {
+    font: 500 9.5px/1 var(--font-mono);
+    color: var(--ink-muted);
+    white-space: nowrap;
+  }
+  .sem-list code {
+    font: 500 10.5px/1.2 var(--font-mono);
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .sem-list i {
+    height: 16px;
+    border-radius: 5px;
+    box-shadow:
+      inset 0 0 0 1px rgb(255 255 255 / 0.14),
+      0 1px 2px rgb(0 0 0 / 0.3);
+  }
+
+  /* Components: a dense sheet anchored to the front edge */
+  .plane-comp {
+    padding: 16px 18px 28px;
+    display: grid;
+    align-content: end;
+  }
+  .sheet {
+    display: grid;
+    gap: 10px;
+  }
+  .row {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+    align-items: center;
+  }
+  .row-wide {
+    gap: 12px;
+    align-items: end;
+  }
+  .field {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .win {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    color: var(--pance-color-fg-default);
+  }
+  .win-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--pance-color-border-soft);
+  }
+  .win-bar span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--pance-color-border-strong);
+  }
+  .win-bar em {
+    margin-left: 8px;
+    font: 500 10.5px/1 var(--font-mono);
+    font-style: normal;
+    color: var(--pance-color-fg-muted);
+  }
+  .win-body {
+    padding: 14px 16px;
+    display: grid;
+    gap: 12px;
+  }
+  .win-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+  }
+  .win-kicker {
+    margin: 0;
+    font: 500 10.5px/1.2 var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--pance-color-fg-muted);
+  }
+  .win-title {
+    margin: 2px 0 0;
+    font: 700 16px/1.2 var(--pance-font-family-jakarta);
+  }
+  .metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .stat {
+    min-width: 0;
+    display: grid;
+    gap: 6px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid var(--pance-color-border-soft);
+    background: var(--pance-color-bg-sunken);
+  }
+  .stat-l {
+    font: 500 11px/1.2 var(--font-sans);
+    color: var(--pance-color-fg-muted);
+  }
+  .stat-v {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font: 700 20px/1 var(--pance-font-family-jakarta);
+  }
+
+  .tag {
+    position: absolute;
+    right: 14px;
+    bottom: 10px;
+    z-index: 2;
+    font: 500 10px/1 var(--font-mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .plane-product .tag {
+    top: 10px;
+    bottom: auto;
+    right: 14px;
+    color: var(--pance-color-fg-muted);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stage {
+      --gap: 92px !important;
+    }
+    .plane {
+      transition: none;
+    }
+  }
+  @media (max-width: 900px) {
+    .stage {
+      aspect-ratio: 1 / 0.9;
+      margin-top: 64px;
+    }
+    .stage:global(.is-ready) {
+      --gap: calc(46px + var(--p) * 34px);
+    }
+    .stack {
+      width: 70%;
+      top: 58%;
+    }
+    .plane-product .tag {
+      display: none;
+    }
+  }
+</style>

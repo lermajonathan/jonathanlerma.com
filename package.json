@@ -1,0 +1,54 @@
+{
+  "name": "jonathanlerma-portfolio",
+  "version": "1.0.0",
+  "description": "Jonathan Lerma — design systems & design engineering portfolio, built with Pance.",
+  "scripts": {
+    "dev": "npm run tokens && astro dev",
+    "tokens": "node scripts/brand-scope.mjs",
+    "build": "npm run tokens && astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "node --test --test-concurrency=1 tests/e2e/*.test.mjs",
+    "og": "node scripts/og.mjs",
+    "verify": "npm run format:check && npm run check && npm test && npm run build && npm run test:e2e"
+  },
+  "author": "Jonathan Lerma",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@astrojs/react": "^7.1.0",
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "@fontsource-variable/plus-jakarta-sans": "^5.3.0",
+    "@pance/react": "^1.5.0",
+    "@pance/tokens": "^1.5.0",
+    "astro": "^7.4.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "sharp": "^0.35.5"
+  },
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@astrojs/check": "^0.9.11",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.8",
+    "@types/node": "^22.20.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "axe-core": "^4.14.0",
+    "jsdom": "^29.1.1",
+    "playwright": "^1.56.0",
+    "prettier": "^3.9.10",
+    "prettier-plugin-astro": "^1.1.1",
+    "typescript": "^6.0.3",
+    "vitest": "^5.0.5"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

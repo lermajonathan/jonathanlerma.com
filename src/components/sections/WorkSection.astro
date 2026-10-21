@@ -1,0 +1,44 @@
+---
+import SectionHead from '../ui/SectionHead.astro';
+import WorkCard from '../WorkCard.astro';
+import { work } from '../../data/work';
+import { getWork } from '../../lib/work';
+import altazorClass from '../../assets/img/altazor-class.webp';
+
+// Pance has its own flagship section, so it is not repeated here.
+const featured = getWork(work, 'altazor');
+const others = ['altazor-crm', 'the-signal'].map((slug) => getWork(work, slug));
+---
+
+<section id="work" class="section" aria-labelledby="work-title">
+  <div class="container">
+    <SectionHead
+      id="work-title"
+      number="02"
+      eyebrow="Selected work"
+      title="Complex problems,"
+      accent="calm interfaces."
+    >
+      Each project says what it is — shipped, concept or in progress — and what I can prove about it.
+    </SectionHead>
+    <div class="work-grid">
+      <WorkCard item={featured} image={altazorClass} wide />
+      {others.map((item, i) => (
+        <WorkCard item={item} delay={i + 1} />
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(20px, 2.5vw, 32px);
+  }
+  @media (max-width: 900px) {
+    .work-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

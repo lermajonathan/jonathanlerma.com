@@ -1,0 +1,171 @@
+---
+import Aurora from '../ui/Aurora.astro';
+import Icon from '../ui/Icon.astro';
+import SystemStack from '../SystemStack.astro';
+import { person } from '../../data/person';
+import { proof } from '../../data/home';
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <Aurora />
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow" data-reveal data-spec="eyebrow · font.mono 12 · tracking 0.1em · fg.muted">
+        <b>{person.role}</b>
+      </p>
+      <h1
+        id="hero-title"
+        class="display"
+        data-reveal
+        style="--d:1"
+        data-spec="display · Plus Jakarta Sans 680 · clamp(46→101px) · lh 0.94 · tracking −0.055em · em: accent gradient"
+      >
+        I design systems <em>that ship.</em>
+      </h1>
+      <p class="lede" data-reveal style="--d:2" data-spec="lede · Inter 22 · lh 1.5 · fg.soft">
+        I’m Jonathan Lerma, a senior UX/UI designer with 12+ years in SaaS, education technology and B2B. I turn complex
+        data into calm interfaces — and build the design systems that keep them consistent, from Figma variables to npm.
+      </p>
+      <div class="hero-cta" data-reveal style="--d:3">
+        <a
+          class="btn btn-primary"
+          href="/work/pance/"
+          data-spec="btn primary · intent.primary.solid (aqua.700) · on-solid white · 5.36:1"
+        >
+          Explore Pance <Icon name="arrow" />
+        </a>
+        <a class="btn btn-ghost" href="#contact">
+          Work with me
+        </a>
+      </div>
+      <p class="hero-meta mono" data-reveal style="--d:4">
+        <span class="pulse" aria-hidden="true"></span>
+        {person.location} · {person.timezone} · Open to consulting & senior roles
+      </p>
+    </div>
+    <div class="hero-visual">
+      <SystemStack />
+    </div>
+  </div>
+  <div class="container">
+    <ul class="proof" aria-label="At a glance" data-spec="proof strip · grid 5 · hairline border.default">
+      {proof.map((item, i) => (
+        <li data-reveal style={`--d:${i}`}>
+          <span class="proof-value">{item.value}</span>
+          <span class="proof-label">{item.label}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    padding-top: clamp(120px, 16vh, 180px);
+    overflow: clip;
+  }
+  .hero-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: clamp(24px, 4vw, 64px);
+    align-items: center;
+    min-height: min(78vh, 820px);
+  }
+  .hero-copy {
+    display: grid;
+    gap: 28px;
+    position: relative;
+    z-index: 2;
+  }
+  .hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+  }
+  .pulse {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--pance-color-emerald-400);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--pance-color-emerald-400) 60%, transparent);
+    animation: pulse 2.4s infinite;
+  }
+  @keyframes pulse {
+    70% {
+      box-shadow: 0 0 0 10px transparent;
+    }
+    100% {
+      box-shadow: 0 0 0 0 transparent;
+    }
+  }
+  .hero-visual {
+    margin-right: calc(var(--gutter) * -1);
+  }
+
+  .proof {
+    position: relative;
+    z-index: 1;
+    list-style: none;
+    margin: clamp(48px, 8vw, 96px) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    border-top: 1px solid var(--line);
+  }
+  .proof li {
+    padding: 28px 24px 8px 0;
+    display: grid;
+    gap: 6px;
+  }
+  .proof li + li {
+    padding-left: 24px;
+    border-left: 1px solid var(--line-soft);
+  }
+  .proof-value {
+    font-family: var(--font-display);
+    font-weight: var(--display-weight);
+    font-size: clamp(2rem, 3.2vw, 3rem);
+    line-height: 1;
+    letter-spacing: -0.05em;
+    font-variant-numeric: tabular-nums;
+  }
+  .proof-label {
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+  }
+
+  @media (max-width: 900px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+      min-height: 0;
+    }
+    .hero-visual {
+      margin: 0 auto;
+      width: min(560px, 100%);
+    }
+    .proof {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .proof li,
+    .proof li + li {
+      padding: 20px 16px 8px 0;
+      border-left: 0;
+      border-bottom: 1px solid var(--line-soft);
+    }
+    /* Repeat the sibling selector so this outranks the `li + li` reset above. */
+    .proof li + li:nth-child(even) {
+      padding-left: 16px;
+      border-left: 1px solid var(--line-soft);
+    }
+  }
+</style>

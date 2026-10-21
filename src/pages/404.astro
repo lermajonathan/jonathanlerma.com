@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Page not found · Jonathan Lerma">
+  <section class="nf container">
+    <p class="eyebrow">
+      <b>404</b> Not found
+    </p>
+    <h1 class="display">
+      This page <em>didn’t ship.</em>
+    </h1>
+    <p class="lede">The link may be old — the site was rebuilt in 2026.</p>
+    <p>
+      <a class="btn btn-primary" href="/">
+        Back to the home page
+      </a>
+    </p>
+  </section>
+</Base>
+<style>
+  .nf {
+    min-height: 80vh;
+    display: grid;
+    align-content: center;
+    gap: 28px;
+    padding-top: 120px;
+  }
+</style>

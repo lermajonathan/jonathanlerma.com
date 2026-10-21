@@ -1,0 +1,121 @@
+---
+// A product screen composed only of @pance/react — the proof inside the pitch.
+import { MetricCard, LineChart, Badge, Alert, Button } from '@pance/react';
+---
+
+<div class="frame" data-spec="product screen · 100% @pance/react · tokens: bg.surface / border.soft / radius.lg">
+  <div class="bar" aria-hidden="true">
+    <span></span>
+    <span></span>
+    <span></span>
+    <p>pance-ds.jonathanlerma.com</p>
+  </div>
+  <div class="screen">
+    <div class="head">
+      <div>
+        <p class="kicker">Culture stimuli · 2006 — 2026</p>
+        <p class="title">Where the grants went</p>
+      </div>
+      <div class="head-actions">
+        <Badge severity="primary" dot>
+          Open data
+        </Badge>
+        <Button size="sm" variant="outlined" severity="secondary">
+          Export CSV
+        </Button>
+      </div>
+    </div>
+    <div class="grid3">
+      <MetricCard
+        label="Projects"
+        value="8,214"
+        delta={6.4}
+        trend={[5, 6, 6, 7, 7, 8, 9]}
+        caption="vs. previous five years"
+      />
+      <MetricCard label="Towns reached" value="611" delta={11.2} trend={[3, 4, 4, 5, 6, 6, 7]} />
+      <MetricCard label="Active at 3 yrs" value="42" unit="%" delta={-3.1} trend={[9, 8, 8, 7, 7, 6, 6]} />
+    </div>
+    <LineChart
+      title="Grants awarded per year"
+      subtitle="Illustrative data — the real project is in discovery"
+      labels={['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025']}
+      series={[
+        { name: 'Pacific region', data: [120, 132, 150, 148, 96, 160, 188, 204, 221, 236] },
+        { name: 'Andean region', data: [310, 322, 340, 351, 240, 360, 372, 390, 401, 418] },
+      ]}
+      height={200}
+    />
+    <Alert severity="info" title="Built with Pance">
+      Every element in this frame is a @pance/react component reading @pance/tokens.
+    </Alert>
+  </div>
+</div>
+
+<style>
+  .frame {
+    border-radius: 20px;
+    border: 1px solid color-mix(in srgb, var(--pance-color-aqua-400) 25%, var(--line));
+    background: var(--pance-color-bg-page);
+    box-shadow:
+      0 80px 160px -60px color-mix(in srgb, var(--pance-color-aqua-500) 40%, transparent),
+      0 30px 60px -30px rgb(0 0 0 / 0.5);
+    overflow: hidden;
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--pance-color-border-soft);
+    background: var(--pance-color-bg-surface);
+  }
+  .bar span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--pance-color-border-strong);
+  }
+  .bar p {
+    margin: 0 auto;
+    font: 500 11.5px/1 var(--font-mono);
+    color: var(--pance-color-fg-muted);
+    padding: 5px 14px;
+    border-radius: 999px;
+    background: var(--pance-color-bg-sunken);
+  }
+  .screen {
+    padding: clamp(16px, 2.5vw, 28px);
+    display: grid;
+    gap: 18px;
+    color: var(--pance-color-fg-default);
+  }
+  .head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: end;
+    gap: 12px;
+  }
+  .head-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .kicker {
+    margin: 0;
+    font: 500 11px/1.3 var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--pance-color-fg-muted);
+  }
+  .title {
+    margin: 4px 0 0;
+    font: 700 clamp(18px, 2vw, 22px)/1.2 var(--pance-font-family-jakarta);
+  }
+  .grid3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+  }
+</style>

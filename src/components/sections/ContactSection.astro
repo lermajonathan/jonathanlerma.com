@@ -1,0 +1,52 @@
+---
+import Aurora from '../ui/Aurora.astro';
+import ContactPicker from '../ContactPicker';
+import { person } from '../../data/person';
+---
+
+<section id="contact" class="section contact" aria-labelledby="contact-title">
+  <Aurora placement="bottom" />
+  <div class="container contact-grid">
+    <div>
+      <p class="eyebrow" data-reveal>
+        <b>07</b> Contact
+      </p>
+      <h2 id="contact-title" class="display contact-title" data-reveal style="--d:1">
+        Let’s build something <em>that lasts.</em>
+      </h2>
+      <p class="mono contact-tz" data-reveal style="--d:2">
+        {person.location} · {person.timezone} · Replies within one business day
+      </p>
+    </div>
+    <div data-reveal style="--d:2">
+      <ContactPicker client:visible email={person.email} calendly={person.calendly} />
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact {
+    overflow: clip;
+    border-top: 1px solid var(--line-soft);
+  }
+  .contact-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+    gap: clamp(32px, 6vw, 96px);
+    align-items: end;
+  }
+  .contact-title {
+    font-size: clamp(2.8rem, 6vw, 6.2rem);
+    margin-top: 24px;
+  }
+  .contact-tz {
+    margin-top: 28px;
+  }
+  @media (max-width: 900px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,192 @@
+---
+import Base from './Base.astro';
+import Icon from '../components/ui/Icon.astro';
+import { work } from '../data/work';
+import { getWork, nextWork } from '../lib/work';
+import '../styles/case.css';
+
+interface Props {
+  slug: string;
+  title: string;
+  headline: string;
+  headlineAccent: string;
+  summary: string;
+  meta: { label: string; value: string }[];
+  links?: { label: string; href: string }[];
+  description?: string;
+  /** Colour of the glow behind the page title. */
+  accent?: string;
+}
+const {
+  slug,
+  title,
+  headline,
+  headlineAccent,
+  summary,
+  meta,
+  links = [],
+  description,
+  accent = 'var(--brand-glow)',
+} = Astro.props;
+const item = getWork(work, slug);
+const next = nextWork(work, slug);
+---
+
+<Base
+  title={`${title} — Case study · Jonathan Lerma`}
+  description={description ?? summary}
+  type="article"
+  ogImage={`/og/${slug}.png`}
+>
+  <article class="case" style={`--accent: ${accent}`}>
+    <header class="case-hero">
+      <div class="case-glow" aria-hidden="true"></div>
+      <div class="container">
+        <nav class="crumbs mono" aria-label="Breadcrumb">
+          <a href="/#work">Work</a> <span aria-hidden="true">/</span> <span aria-current="page">{title}</span>
+        </nav>
+        <div class="case-top">
+          <span class="status" data-status={item.status}>
+            {item.status}
+          </span>
+          <span class="mono">{item.kicker}</span>
+        </div>
+        <h1 class="display case-title">
+          {headline} <em>{headlineAccent}</em>
+        </h1>
+        <div class="case-intro">
+          <p class="lede">{summary}</p>
+          <dl class="case-meta">
+            {meta.map((entry) => (
+              <div>
+                <dt class="mono">{entry.label}</dt>
+                <dd>{entry.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+        {links.length > 0 && (
+          <ul class="case-links">
+            {links.map((link, i) => (
+              <li>
+                <a class:list={['btn', i === 0 ? 'btn-primary' : 'btn-ghost']} href={link.href}>
+                  {link.label} <Icon name="external" size={14} />
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </header>
+    <div class="case-body">
+      <slot />
+    </div>
+    <aside class="next" aria-label="Next case study">
+      <div class="container">
+        <a href={`/work/${next.slug}/`} class="next-link">
+          <span class="mono">Next · {next.status}</span>
+          <span class="h2">
+            {next.title} <span aria-hidden="true">→</span>
+          </span>
+        </a>
+      </div>
+    </aside>
+  </article>
+</Base>
+
+<style>
+  .case-hero {
+    position: relative;
+    padding: clamp(130px, 18vh, 190px) 0 clamp(64px, 8vw, 112px);
+    overflow: clip;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .case-glow {
+    position: absolute;
+    width: 70vw;
+    height: 70vw;
+    right: -20vw;
+    top: -35vw;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--accent) var(--glow-strength), transparent);
+    filter: blur(100px);
+    pointer-events: none;
+  }
+  .case-hero .container {
+    position: relative;
+  }
+  .crumbs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 40px;
+  }
+  .crumbs a {
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+  .crumbs a:hover {
+    color: var(--ink);
+  }
+  .case-top {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .case-title {
+    font-size: clamp(2.8rem, 6.4vw, 6.6rem);
+    max-width: 15ch;
+  }
+  .case-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: clamp(32px, 6vw, 96px);
+    margin-top: clamp(40px, 5vw, 64px);
+    align-items: start;
+  }
+  .case-meta {
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 24px;
+  }
+  .case-meta div {
+    border-top: 1px solid var(--line);
+    padding-top: 12px;
+  }
+  .case-meta dd {
+    margin: 6px 0 0;
+    font-size: 0.95rem;
+    color: var(--ink);
+  }
+  .case-links {
+    list-style: none;
+    padding: 0;
+    margin: 40px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .next {
+    border-top: 1px solid var(--line-soft);
+  }
+  .next-link {
+    display: grid;
+    gap: 16px;
+    padding-block: clamp(64px, 10vw, 140px);
+    text-decoration: none;
+  }
+  .next-link .h2 span {
+    display: inline-block;
+    transition: transform 0.6s var(--ease-out);
+    color: var(--brand);
+  }
+  .next-link:hover .h2 span {
+    transform: translateX(12px);
+  }
+  @media (max-width: 900px) {
+    .case-intro {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

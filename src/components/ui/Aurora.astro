@@ -1,0 +1,72 @@
+---
+// Slow-moving coloured light behind the hero and the contact section.
+// Decorative only; stops moving when the visitor prefers reduced motion.
+interface Props {
+  placement?: 'top' | 'bottom';
+}
+const { placement = 'top' } = Astro.props;
+const orbs = placement === 'top' ? 3 : 2;
+---
+
+<div class:list={['aurora', { 'aurora-low': placement === 'bottom' }]} aria-hidden="true">
+  {Array.from({ length: orbs }, () => (
+    <i />
+  ))}
+</div>
+
+<style>
+  .aurora {
+    position: absolute;
+    inset: -10% -10% auto;
+    height: 120vh;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .aurora-low {
+    inset: auto -10% -40%;
+    height: 90%;
+  }
+  .aurora i {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.9;
+    animation: drift 26s ease-in-out infinite alternate;
+  }
+  .aurora i:nth-child(1) {
+    width: 52vw;
+    height: 52vw;
+    right: 2%;
+    top: 4%;
+    background: color-mix(in srgb, var(--brand-glow) var(--glow-strength), transparent);
+  }
+  .aurora i:nth-child(2) {
+    width: 36vw;
+    height: 36vw;
+    left: -6%;
+    top: 46%;
+    background: color-mix(in srgb, var(--pance-color-sky-400) calc(var(--glow-strength) * 0.7), transparent);
+    animation-duration: 32s;
+    animation-delay: -8s;
+  }
+  .aurora i:nth-child(3) {
+    width: 22vw;
+    height: 22vw;
+    left: 40%;
+    top: 20%;
+    background: color-mix(in srgb, var(--pance-color-emerald-400) calc(var(--glow-strength) * 0.45), transparent);
+    animation-duration: 38s;
+    animation-delay: -14s;
+  }
+  @keyframes drift {
+    0% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(-4vw, 3vh, 0) scale(1.08);
+    }
+    100% {
+      transform: translate3d(3vw, -2vh, 0) scale(0.96);
+    }
+  }
+</style>

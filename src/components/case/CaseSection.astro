@@ -1,0 +1,38 @@
+---
+// One numbered chapter of a case study: a sticky label column (eyebrow,
+// title, optional intro in the "intro" slot) and the content column.
+interface Props {
+  id: string;
+  number: string;
+  eyebrow: string;
+  title: string;
+  accent?: string;
+  /** Words after the accent, e.g. "every push." in "checked by machines, every push." */
+  after?: string;
+}
+const { id, number, eyebrow, title, accent, after } = Astro.props;
+---
+
+<section class="cs" aria-labelledby={id}>
+  <div class="container">
+    <div class="cs-grid">
+      <div class="cs-label">
+        <p class="eyebrow">
+          <b>{number}</b> {eyebrow}
+        </p>
+        <h2 {id} class="h3">
+          {title} {accent && <em>{accent}</em>}
+          {after && ` ${after}`}
+        </h2>
+        {Astro.slots.has('intro') && (
+          <p class="body">
+            <slot name="intro" />
+          </p>
+        )}
+      </div>
+      <div class="cs-content">
+        <slot />
+      </div>
+    </div>
+  </div>
+</section>
