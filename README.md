@@ -1,4 +1,4 @@
-# jonathanlerma.com
+# ux.jonathanlerma.com
 
 Portfolio of Jonathan Lerma — design systems & design engineering.
 Built with **[Pance](https://pance-ds.jonathanlerma.com)** (`@pance/react` + `@pance/tokens`) and Astro, hosted on GitHub Pages.
@@ -31,23 +31,15 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the definition of done, the test-firs
 
 **Inspect mode:** press <kbd>I</kbd> on any page. Elements with a `data-spec` attribute show the tokens they're built from.
 
-## Go live on jonathanlerma.com
+## Hosting
 
-1. **Create the repository** on GitHub as **public**, for example `lermajonathan/jonathanlerma.com`, without a README (this repo already has one). Then, from this folder:
-   ```bash
-   git init -b main
-   git add .
-   git commit -m "Portfolio built with Pance"
-   git remote add origin https://github.com/lermajonathan/jonathanlerma.com.git
-   git push -u origin main
-   ```
-2. **Turn on Pages:** Settings → Pages → Source: **GitHub Actions**. The workflow in `.github/workflows/deploy.yml` runs every check and deploys only if they all pass.
-3. **Protect `main`:** Settings → Rules → Rulesets → New branch ruleset → target `main` → turn on _Require status checks to pass_ and pick **Verify (definition of done)**, plus _Block force pushes_. Nobody else can push anyway; this stops a broken change of your own from going live.
-4. **Verify the domain** (recommended, prevents domain takeovers): your profile Settings → Pages → _Add a domain_ → `jonathanlerma.com`, and add the TXT record GitHub shows you at your DNS provider.
-5. **Point the domain:** at your DNS provider, set the apex `jonathanlerma.com` to GitHub Pages with four A records — `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153` — and `www` as a CNAME to `lermajonathan.github.io`. Remove the records that point to the current site.
-6. **Custom domain:** repo Settings → Pages → Custom domain → `jonathanlerma.com`. When the certificate is ready, tick **Enforce HTTPS**. (With an Actions deployment no `CNAME` file is needed; the setting lives in the repo.)
+The site lives at **[ux.jonathanlerma.com](https://ux.jonathanlerma.com)** on GitHub Pages.
 
-`pance-ds.jonathanlerma.com` is a separate subdomain and keeps working as it is.
+- **Deploys:** every push to `main` runs `.github/workflows/deploy.yml`. It runs the whole definition of done and publishes only if every check passes (Settings → Pages → Source: **GitHub Actions**).
+- **Domain:** a `CNAME` record `ux` → `lermajonathan.github.io` at the DNS provider, with the custom domain set in Settings → Pages and **Enforce HTTPS** on. With an Actions deployment no `CNAME` file is needed in the repo.
+- **Base URL:** `site` in `astro.config.mjs` drives canonical links, Open Graph images and the JSON-LD. Change it if the domain ever changes.
+
+`pance-ds.jonathanlerma.com` and the lab subdomains are separate sites.
 
 ## Licence
 

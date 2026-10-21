@@ -30,7 +30,7 @@ const jsonLd = {
   name: person.name,
   jobTitle: person.title,
   description: 'Design systems & design engineering',
-  url: 'https://jonathanlerma.com/',
+  url: new URL('/', Astro.site).href,
   email: `mailto:${person.email}`,
   address: { '@type': 'PostalAddress', addressLocality: 'Cali', addressCountry: 'CO' },
   sameAs: [person.linkedin, person.github, person.figma, 'https://pance-ds.jonathanlerma.com'],
