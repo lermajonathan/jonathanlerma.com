@@ -124,7 +124,7 @@ const isCurrent = (href: string) => !href.includes('#') && path.startsWith(href)
     padding: 0 10px 0 12px;
     border-radius: 22px;
     background:
-      linear-gradient(180deg, rgb(255 255 255 / 0.11) 0%, rgb(255 255 255 / 0.035) 100%),
+      linear-gradient(180deg, rgb(255 255 255 / 0.18) 0%, rgb(255 255 255 / 0.073) 50%, rgb(255 255 255 / 0.035) 100%),
       color-mix(in srgb, var(--pance-color-river-950) 38%, transparent);
     -webkit-backdrop-filter: blur(12px) blur(12px) saturate(190%) brightness(1.06);
     backdrop-filter: blur(12px) blur(12px) saturate(190%) brightness(1.06);
@@ -180,20 +180,14 @@ const isCurrent = (href: string) => !href.includes('#') && path.startsWith(href)
     background: radial-gradient(40% 70% at var(--mx) var(--my), rgb(255 255 255 / 0.16), transparent 70%);
     transition: background-position 0.2s;
   }
-  .sheen::after {
-    content: '';
-    position: absolute;
-    inset: 0 0 50% 0;
-    background: linear-gradient(180deg, rgb(255 255 255 / 0.07), transparent);
-  }
   .nav:global(.is-scrolled) .nav-inner {
     background:
-      linear-gradient(180deg, rgb(255 255 255 / 0.1) 0%, rgb(255 255 255 / 0.03) 100%),
+      linear-gradient(180deg, rgb(255 255 255 / 0.17) 0%, rgb(255 255 255 / 0.065) 50%, rgb(255 255 255 / 0.03) 100%),
       color-mix(in srgb, var(--pance-color-river-950) 52%, transparent);
   }
 
   :global(:root[data-theme='light']) .nav-inner {
-    background: linear-gradient(180deg, rgb(255 255 255 / 0.78) 0%, rgb(255 255 255 / 0.52) 100%);
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.8) 0%, rgb(255 255 255 / 0.65) 50%, rgb(255 255 255 / 0.52) 100%);
     box-shadow:
       inset 0 1px 0 rgb(255 255 255 / 1),
       inset 0 -1px 0 rgb(15 23 42 / 0.03),
@@ -203,7 +197,7 @@ const isCurrent = (href: string) => !href.includes('#') && path.startsWith(href)
       0 30px 60px -30px rgb(15 23 42 / 0.18);
   }
   :global(:root[data-theme='light']) .nav:global(.is-scrolled) .nav-inner {
-    background: linear-gradient(180deg, rgb(255 255 255 / 0.82) 0%, rgb(255 255 255 / 0.6) 100%);
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.83) 0%, rgb(255 255 255 / 0.71) 50%, rgb(255 255 255 / 0.6) 100%);
   }
   :global(:root[data-theme='light']) .nav-inner::before {
     background: linear-gradient(
