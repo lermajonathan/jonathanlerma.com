@@ -108,3 +108,34 @@ test('content is readable without JavaScript', async () => {
   assert.equal(hidden, 0);
   await context.close();
 });
+
+test('charts fit inside their card on a phone', async () => {
+  const phone = VIEWPORTS.find((viewport) => viewport.name === 'phone');
+  const overflowing = [];
+  for (const path of PAGES) {
+    const page = await browser.newPage({ viewport: phone });
+    await page.goto(server.origin + path);
+    // Bring each chart on screen and let its island hydrate before measuring.
+    for (const figure of await page.locator('figure:has(svg)').all()) {
+      await figure.scrollIntoViewIfNeeded();
+      await figure.evaluate(
+        (el) =>
+          new Promise((resolve) => {
+            const island = el.closest('astro-island');
+            const hydrated = () => !island || !island.hasAttribute('ssr');
+            const timer = setInterval(() => hydrated() && (clearInterval(timer), resolve()), 50);
+          }),
+      );
+    }
+    await page.waitForTimeout(300); // charts re-measure on the frame after hydration
+    const found = await page.$$eval('figure svg', (svgs) =>
+      svgs
+        .map((svg) => ({ svg: svg.getBoundingClientRect(), card: svg.closest('figure').getBoundingClientRect() }))
+        .filter(({ svg, card }) => svg.width > 40 && svg.right > card.right + 1)
+        .map(({ svg, card }) => `${Math.round(svg.width)}px chart in a ${Math.round(card.width)}px card`),
+    );
+    overflowing.push(...found.map((text) => `${path}: ${text}`));
+    await page.close();
+  }
+  assert.deepEqual(overflowing, []);
+});

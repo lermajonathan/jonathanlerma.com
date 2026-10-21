@@ -1,6 +1,7 @@
 ---
 // A product screen composed only of @pance/react — the proof inside the pitch.
-import { MetricCard, LineChart, Badge, Alert, Button } from '@pance/react';
+import { MetricCard, Badge, Alert, Button } from '@pance/react';
+import ShowcaseChart from './ShowcaseChart';
 ---
 
 <div class="frame" data-spec="product screen · 100% @pance/react · tokens: bg.surface / border.soft / radius.lg">
@@ -36,16 +37,9 @@ import { MetricCard, LineChart, Badge, Alert, Button } from '@pance/react';
       <MetricCard label="Towns reached" value="611" delta={11.2} trend={[3, 4, 4, 5, 6, 6, 7]} />
       <MetricCard label="Active at 3 yrs" value="42" unit="%" delta={-3.1} trend={[9, 8, 8, 7, 7, 6, 6]} />
     </div>
-    <LineChart
-      title="Grants awarded per year"
-      subtitle="Illustrative data — the real project is in discovery"
-      labels={['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025']}
-      series={[
-        { name: 'Pacific region', data: [120, 132, 150, 148, 96, 160, 188, 204, 221, 236] },
-        { name: 'Andean region', data: [310, 322, 340, 351, 240, 360, 372, 390, 401, 418] },
-      ]}
-      height={200}
-    />
+    <div class="chart">
+      <ShowcaseChart client:visible />
+    </div>
     <Alert severity="info" title="Built with Pance">
       Every element in this frame is a @pance/react component reading @pance/tokens.
     </Alert>
@@ -112,6 +106,11 @@ import { MetricCard, LineChart, Badge, Alert, Button } from '@pance/react';
   .title {
     margin: 4px 0 0;
     font: 700 clamp(18px, 2vw, 22px)/1.2 var(--pance-font-family-jakarta);
+  }
+  /* Until the island hydrates the chart is 600 px wide: clip it instead of letting it spill. */
+  .chart {
+    min-width: 0;
+    overflow: hidden;
   }
   .grid3 {
     display: grid;
